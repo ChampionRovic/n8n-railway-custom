@@ -50,6 +50,8 @@ def check_chapters(chapters, zoom, today):
         row = {"chapter": c["chapter"], "ghl": f"{c['day']} {c['time']}", "zoom_id": c["zoom_id"], "zoom": "—", "status": "ok", "note": "Matches Zoom."}
         if c["chapter"].startswith("Test Chapter"):
             row.update(status="test", note="Test entry; safe to ignore.")
+        elif z.get("error"):
+            row.update(status="check", zoom="not checked", note=f"Zoom lookup unavailable this run ({z['error']}). GoHighLevel-side checks still ran.")
         elif not z.get("found"):
             if c["zoom_id"] in EXTERNAL_HOSTED:
                 row.update(status="ok", zoom="not visible", note=f"Hosted on another Zoom account: {EXTERNAL_HOSTED[c['zoom_id']]}. Confirmed manually.")
