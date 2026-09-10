@@ -144,7 +144,8 @@ def render(f, run_date):
     mrow = "\n".join(f'<tr><td>{e(r["date"])}</td><td class="mono">{e(r["contact"])}</td><td>{e(str(r["subject"]))}</td><td>{e(str(r["link_chapter"]))}</td><td>{e(", ".join(r["booked"]))}</td></tr>' for r in em["mismatches"]) or '<tr><td colspan="5">None.</td></tr>'
     srow = "\n".join(f'<tr><td>{e(r["date"])}</td><td class="mono">{e(r["contact"])}</td><td>{e(str(r["subject"]))}</td><td class="mono">{e(r["zoom_id"])}</td></tr>' for r in em["stale_zoom_emails"]) or '<tr><td colspan="4">None.</td></tr>'
     obj = f["objects"]
-    obj_html = f'<p>Read {len(obj["records"])} chapter records.</p>' if "records" in obj else f'<p>Not readable (HTTP {obj.get("error")}). Add <code>objects/schema.readonly</code> and <code>objects/record.readonly</code> to include it.</p>'
+    obj_html = (f'<p>Read {len(obj["records"])} chapter records.</p>' if obj.get("records") else
+                '<p>The object is readable but holds no records. The per-contact Zoom Link values are therefore set somewhere else, most likely inside the Update Chapter Info workflow, which the API cannot read.</p>') if "records" in obj else f'<p>Not readable (HTTP {obj.get("error")}). Add <code>objects/schema.readonly</code> and <code>objects/record.readonly</code> to include it.</p>'
     fixes = f.get("fixes_applied", [])
     fix_html = ("<ul>" + "".join(f'<li class="mono">{e(x)}</li>' for x in fixes) + "</ul>") if fixes else "<p>No changes were written this run.</p>"
     with open(os.path.join(os.path.dirname(__file__), "report_style.css")) as s: css = s.read()
