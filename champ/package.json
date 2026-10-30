@@ -1,0 +1,14 @@
+{
+  "name": "champ-brain",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "The brain for Champ, an autonomous baby goat at At A Slant Farm.",
+  "scripts": {
+    "day": "node brain.mjs",
+    "dry": "node brain.mjs --dry-run"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.3.0"
+  }
+}
