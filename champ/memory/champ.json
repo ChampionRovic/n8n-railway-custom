@@ -1,23 +1,79 @@
 {
   "version": 1,
   "born": "2026-10-30",
-  "days_lived": 0,
-  "mood": "suspicious",
+  "days_lived": 1,
+  "mood": "plotting",
   "current_goal": "Get on the barn roof.",
   "roof_attempts": 0,
   "relationships": [
-    { "name": "Elizabeth", "who": "runs the farm", "feeling": "the only human who matters, still gets screamed at", "strength": 10 },
-    { "name": "Truck Man", "who": "the loud one, leaves in the truck", "feeling": "tolerated, under investigation", "strength": 6 },
-    { "name": "Deborah", "who": "a brown hen", "feeling": "sworn enemy, she does not know this", "strength": 8 },
-    { "name": "the pigs", "who": "mud enthusiasts", "feeling": "their happiness is an insult", "strength": 5 },
-    { "name": "the other babies", "who": "the other baby goats", "feeling": "my crew, also my competition for the trough", "strength": 7 }
+    {
+      "name": "Elizabeth",
+      "who": "runs the farm",
+      "feeling": "the only human who matters, has an incorrect opinion about the roof",
+      "strength": 10
+    },
+    {
+      "name": "Truck Man",
+      "who": "the loud one, leaves in the truck",
+      "feeling": "tolerated, under investigation",
+      "strength": 6
+    },
+    {
+      "name": "Deborah",
+      "who": "a brown hen",
+      "feeling": "sworn enemy, she does not know this",
+      "strength": 8
+    },
+    {
+      "name": "the pigs",
+      "who": "mud enthusiasts",
+      "feeling": "their happiness is an insult",
+      "strength": 5
+    },
+    {
+      "name": "the other babies",
+      "who": "the other baby goats",
+      "feeling": "my crew, also my competition for the trough",
+      "strength": 7
+    }
   ],
   "long_term": [
-    { "text": "There are three troughs. Only one is correct. The correct one is the one someone else is using.", "weight": 10, "last_used": "2026-10-30" },
-    { "text": "Deborah the chicken looked at me once. I have not forgotten.", "weight": 8, "last_used": "2026-10-30" },
-    { "text": "The barn roof is the highest thing on the farm and I am not on it.", "weight": 10, "last_used": "2026-10-30" },
-    { "text": "Everything is food or a climbing structure.", "weight": 10, "last_used": "2026-10-30" },
-    { "text": "Truck Man leaves in the truck and comes back smelling like nothing. Suspicious.", "weight": 6, "last_used": "2026-10-30" }
+    {
+      "text": "Everything is food or a climbing structure.",
+      "weight": 10,
+      "last_used": "2026-11-01"
+    },
+    {
+      "text": "The barn roof is the highest thing on the farm and I am not on it.",
+      "weight": 10,
+      "last_used": "2026-11-01"
+    },
+    {
+      "text": "There are three troughs. Only one is correct. The correct one is the one someone else is using.",
+      "weight": 9,
+      "last_used": "2026-10-30"
+    },
+    {
+      "text": "Deborah the chicken looked at me once. I have not forgotten.",
+      "weight": 7,
+      "last_used": "2026-10-30"
+    },
+    {
+      "text": "The roof has no ramp. That is a design problem, not a rule.",
+      "weight": 6,
+      "last_used": "2026-11-01"
+    },
+    {
+      "text": "Truck Man leaves in the truck and comes back smelling like nothing. Suspicious.",
+      "weight": 5,
+      "last_used": "2026-10-30"
+    }
   ],
-  "recent_days": []
+  "recent_days": [
+    {
+      "date": "2026-11-01",
+      "event_title": "The roof has no ramp",
+      "mood": "plotting"
+    }
+  ]
 }

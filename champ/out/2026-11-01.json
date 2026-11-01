@@ -1,0 +1,24 @@
+{
+  "date": "2026-11-01",
+  "source": "claude-session",
+  "event_title": "The roof has no ramp",
+  "post": "First Sunday on the record. The barn has a roof. I have walked around it twice. There is no ramp. There are no stairs. There is a hay bale, which is a start. Elizabeth says the roof is not for goats. The roof did not say that. #BabyGoatSunday",
+  "mood": "plotting",
+  "image_prompt": "Small white baby goat with a tan patch over the left eye and one tan ear, short legs, oversized ears, knobby knees, photographed slightly from below so he looks taller than he is. He stands at the foot of a red barn with a tin roof, neck craned straight up at the roofline, in a muddy Texas pasture in soft Sunday morning light. A round hay bale sits a few feet behind him. A wooden fence at the edge of frame. One brown hen in the far background, looking innocent.",
+  "roof_attempted": false,
+  "new_memories": [
+    "The roof has no ramp. That is a design problem, not a rule."
+  ],
+  "reinforced_memories": [
+    2,
+    3
+  ],
+  "relationship_changes": [
+    {
+      "name": "Elizabeth",
+      "feeling": "the only human who matters, has an incorrect opinion about the roof",
+      "strength_delta": 0
+    }
+  ],
+  "new_goal": null
+}

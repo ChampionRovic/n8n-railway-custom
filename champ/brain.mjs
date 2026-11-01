@@ -3,8 +3,10 @@
 // he remembers (memory/champ.json), asks Claude what happened to him today,
 // then writes the post to out/ and updates his memory.
 //
-//   node brain.mjs             live run, needs ANTHROPIC_API_KEY (or `ant auth login`)
-//   node brain.mjs --dry-run   no API call, uses a canned day so the pipeline can be tested
+//   node brain.mjs                 live run via the API, needs ANTHROPIC_API_KEY
+//   node brain.mjs --apply day.json  no API. A Claude session (scheduled task) writes the
+//                                    day's JSON itself, then this applies it to memory.
+//   node brain.mjs --dry-run         no API, canned day, proves the pipeline works
 //
 // Memory works like Pino's: a capped list of long-term memories that fade
 // unless the day's events reinforce them. Nothing is ever edited by hand.
@@ -22,6 +24,8 @@ const MODEL = process.env.CHAMP_MODEL ?? "claude-opus-5-5";
 const MAX_LONG_TERM = 24; // same cap Pino uses per memory section
 const KEEP_RECENT_DAYS = 7;
 const DRY_RUN = process.argv.includes("--dry-run");
+const APPLY_IDX = process.argv.indexOf("--apply");
+const APPLY_PATH = APPLY_IDX !== -1 ? process.argv[APPLY_IDX + 1] : null;
 
 // The shape the brain must return. Structured outputs guarantee this parses.
 const DAY_SCHEMA = {
@@ -134,6 +138,18 @@ function cannedDay() {
   };
 }
 
+// A day written by a Claude session instead of the API. Check it has the shape
+// the schema would have guaranteed, so a typo can't corrupt memory.
+function loadDayFile(p) {
+  const day = loadJson(p);
+  for (const key of DAY_SCHEMA.required) {
+    if (!(key in day)) throw new Error(`day file missing "${key}"`);
+  }
+  if (!DAY_SCHEMA.properties.mood.enum.includes(day.mood)) throw new Error(`bad mood "${day.mood}"`);
+  if (day.post.split(/\s+/).length > 80) throw new Error("post is over 80 words, Champ does not monologue");
+  return day;
+}
+
 function applyDay(memory, day) {
   const date = todayIso();
 
@@ -189,13 +205,20 @@ async function main() {
   const system = buildSystemPrompt(character);
   const user = buildUserPrompt(memory);
 
-  const day = DRY_RUN ? cannedDay() : await askClaude(system, user);
+  if (process.argv.includes("--prompt")) {
+    // Print exactly what the API brain would see, so a Claude session can be the brain instead.
+    console.log(system + "\n\n---\n\n" + user);
+    return;
+  }
+
+  const day = DRY_RUN ? cannedDay() : APPLY_PATH ? loadDayFile(APPLY_PATH) : await askClaude(system, user);
 
   const updated = applyDay(memory, day);
 
   fs.mkdirSync(OUT_DIR, { recursive: true });
   const outPath = path.join(OUT_DIR, `${todayIso()}.json`);
-  fs.writeFileSync(outPath, JSON.stringify({ date: todayIso(), model: DRY_RUN ? "dry-run" : MODEL, ...day }, null, 2) + "\n");
+  const source = DRY_RUN ? "dry-run" : APPLY_PATH ? "claude-session" : MODEL;
+  fs.writeFileSync(outPath, JSON.stringify({ date: todayIso(), source, ...day }, null, 2) + "\n");
   fs.writeFileSync(MEMORY_PATH, JSON.stringify(updated, null, 2) + "\n");
 
   console.log(`\n${day.event_title.toUpperCase()}  (${day.mood})\n`);
