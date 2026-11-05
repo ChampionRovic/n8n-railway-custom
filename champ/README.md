@@ -12,6 +12,7 @@ The idea comes from Pino, an autonomous AI bird that lives in a 3D town on the w
 | `memory/champ.json` | What he remembers. Capped and fading, like Pino. The brain updates it. Don't hand-edit. |
 | `brain.mjs` | Runs once a day. Reads the two files above, asks Claude what happened to Champ today, writes the post and updates memory. |
 | `out/YYYY-MM-DD.json` | One file per day: the post, his mood, an image prompt, and what changed. This is what n8n picks up. |
+| `photos/` | Every unique photo from Donnie's "Goats" and "Farm" Google Photos albums at 1600px, plus `library.json`, which tags who is in each one (`champ`, `ghost`, `red-sweater`, `pigs`, ...) and lists the 79 videos by link. |
 
 ## Run it
 

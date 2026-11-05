@@ -61,15 +61,16 @@ Recurring jokes. The brain returns to them, escalates them slowly, and never res
 
 ## Visual identity
 
-Used in every image or video prompt so he looks the same every time.
+Champ is a real goat. He is the dark kid who shows up in at least ten shots across Donnie's Google Photos albums, standing square and staring straight into the camera.
 
-- Small black baby goat with white markings: a white blaze down the face and white on the ears, with a white patch on the side. Short legs. Oversized ears. Knobby knees. (Based on the real kid in the Ghost and Luna photo in Donnie's Drive. Donnie to confirm which goat is Champ.)
-- Reference photo: https://drive.google.com/file/d/1nutgoIkJiG9Ff_WOvEsdywhL95njMvNq/view
+- Baby Nigerian Dwarf. Body is dark chocolate to black. Legs, belly, eyebrows and muzzle are tan. A white dot sits between his ears, and he has a small white patch on his side.
+- Ears stick straight out sideways. Knobby knees. Stands with all four feet planted like he owns the ground under them.
+- Reference photos in this repo: `photos/album-001.jpg`, `photos/album-026.jpg`, `photos/album-038.jpg`, `photos/album-067.jpg`, `photos/album-079.jpg`, `photos/album-050.jpg`. The full tagged library is `photos/library.json`.
 - Always photographed slightly from below, like he is taller than he is.
-- Real farm setting, Texas light, slightly muddy. Never a studio.
-- Recurring props: Ghost and Luna, two huge white Great Pyrenees, lying down and enduring, a blue feed trough with too many goats in it, a wooden fence, a red barn.
+- Real farm setting, Texas light, dirt and hay. Never a studio.
+- Recurring props: Ghost and Luna, two huge white Great Pyrenees, lying down and enduring, a feed trough with too many goats in it, the wooden climbing frame, the barn.
 
 ## Open questions for Donnie
 
-- Which baby goat is Champ, physically? The black-and-white kid asleep against the dogs is the current stand-in. If there's a different real one, the visual identity above should match him.
+- Confirm Champ is the dark kid with tan legs and the white dot between his ears (see Visual identity). If it's a different goat, say which.
 - Any other real moments. The trampoline came from you and it's the best thing in this file. Ghost's name came from you too.
