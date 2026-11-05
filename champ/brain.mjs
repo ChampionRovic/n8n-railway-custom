@@ -34,7 +34,16 @@ const DAY_SCHEMA = {
     event_title: { type: "string", description: "Three to six words. What happened today, from Champ's point of view." },
     post: { type: "string", description: "The post itself, in Champ's voice. Under 80 words. Add #BabyGoatSunday only if today is Sunday." },
     mood: { type: "string", enum: ["triumphant", "betrayed", "suspicious", "screaming", "smug", "plotting"] },
-    image_prompt: { type: "string", description: "One paragraph for an image model. Must start with the visual identity from CHARACTER.md, then the scene." },
+    media: {
+      type: "object",
+      description: "Which real photo or video from photos/library.json should go with this post. The pipeline picks from items carrying ALL of these tags.",
+      properties: {
+        type: { type: "string", enum: ["photo", "video", "either"] },
+        tags: { type: "array", items: { type: "string" }, description: "Tags from the library, e.g. [\"champ\"], [\"ghost\"], [\"red-sweater\"], [\"kids-in-trough\"], [\"pigs\"]. Usually include \"champ\" unless the post is about someone else." },
+      },
+      required: ["type", "tags"],
+      additionalProperties: false,
+    },
     new_memories: { type: "array", items: { type: "string" }, description: "Zero to two new long-term memories, each one sentence in Champ's voice." },
     reinforced_memories: { type: "array", items: { type: "integer" }, description: "Indexes of existing long-term memories that today's events touched." },
     relationship_changes: {
@@ -52,7 +61,7 @@ const DAY_SCHEMA = {
     },
     new_goal: { type: ["string", "null"], description: "Only if what he is currently fixated on changed. Usually null." },
   },
-  required: ["event_title", "post", "mood", "image_prompt", "new_memories", "reinforced_memories", "relationship_changes", "new_goal"],
+  required: ["event_title", "post", "mood", "media", "new_memories", "reinforced_memories", "relationship_changes", "new_goal"],
   additionalProperties: false,
 };
 
@@ -81,6 +90,15 @@ function buildSystemPrompt(character) {
   ].join("\n");
 }
 
+function libraryTags() {
+  try {
+    const lib = loadJson(path.join(here, "photos", "library.json"));
+    const counts = {};
+    for (const it of lib.items) for (const t of it.tags) counts[t] = (counts[t] || 0) + 1;
+    return Object.entries(counts).sort((a, b) => b[1] - a[1]).map(([t, c]) => `${t} (${c})`).join(", ");
+  } catch { return "(library not found)"; }
+}
+
 function buildUserPrompt(memory) {
   const recent = memory.recent_days.length
     ? memory.recent_days.map((d) => `- ${d.date} (${d.mood}): ${d.event_title}`).join("\n")
@@ -100,6 +118,10 @@ function buildUserPrompt(memory) {
     "",
     "Recent days:",
     recent,
+    "",
+    "",
+    "Media library tags available, with counts: " + libraryTags() + ".",
+    "Pick media tags that match what actually happened today. Real footage only; nothing is generated.",
     "",
     "Live one more day. Return the JSON.",
   ].join("\n");
@@ -128,7 +150,7 @@ function cannedDay() {
     event_title: "Trough report",
     post: "There are four troughs. All of them have food. We are all in the one by the gate. Elizabeth filled the other three again. We watched her do it. Then we got back in the one by the gate.",
     mood: "smug",
-    image_prompt: "Small white baby goat with a tan patch over the left eye and one tan ear, short legs, oversized ears, knobby knees, photographed slightly from below. He is wedged into a blue feed trough with five other baby goats, three empty troughs visible behind them in a muddy Texas pasture, morning light.",
+    media: { type: "either", tags: ["kids-in-trough"] },
     new_memories: [],
     reinforced_memories: [1],
     relationship_changes: [],

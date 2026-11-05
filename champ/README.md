@@ -11,7 +11,7 @@ The idea comes from Pino, an autonomous AI bird that lives in a 3D town on the w
 | `CHARACTER.md` | Who Champ is. His world, his voice, his running bits, his hard rules, his look. Edit this to change him. |
 | `memory/champ.json` | What he remembers. Capped and fading, like Pino. The brain updates it. Don't hand-edit. |
 | `brain.mjs` | Runs once a day. Reads the two files above, asks Claude what happened to Champ today, writes the post and updates memory. |
-| `out/YYYY-MM-DD.json` | One file per day: the post, his mood, an image prompt, and what changed. This is what n8n picks up. |
+| `out/YYYY-MM-DD.json` | One file per day: the post, his mood, which library tags the media should match, and what changed. This is what n8n picks up. |
 | `photos/` | Every unique photo from Donnie's "Goats" and "Farm" Google Photos albums at 1600px, plus `library.json`, which tags who is in each one (`champ`, `ghost`, `red-sweater`, `pigs`, ...) and lists the 79 videos by link. |
 
 ## Run it
@@ -43,9 +43,6 @@ This is deliberately simple. It gives him continuity and the ability to forget, 
 
 1. **Create the Instagram account.** The handle will need a tail; `champ` alone is taken everywhere. Something like `champthegoat` or `champatslant`. Make it a Business or Creator account so it can be posted to by API.
 2. **Put an Anthropic API key into n8n** as a credential. The brain needs it.
-3. **Pick the image approach.** Three options, in order of how good they look:
-   - Real photos of a real baby goat from the farm, picked by hand each week and matched to the post. Best by far, zero consistency problems, costs you ten minutes on Sunday.
-   - AI image generation from the `image_prompt` in each day's file. Fully autonomous, but the goat will drift in appearance from day to day and that drift is what kills AI character accounts.
-   - No image yet. Text-only test posts for two weeks to judge the voice before spending on visuals.
+3. ~~Pick the image approach.~~ Settled. Champ is a real goat and every post uses real footage from `photos/library.json`. The brain asks for media by tag; the pipeline picks a matching photo or video. Nothing is generated.
 
 Once those three are answered, the n8n workflow is a schedule trigger, a step that runs the brain, a step that attaches the image, and the Instagram publish step. That gets built next.
