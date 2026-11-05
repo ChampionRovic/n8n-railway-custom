@@ -1,0 +1,27 @@
+{
+  "date": "2026-11-05",
+  "source": "claude-session",
+  "event_title": "Trampoline rating: good",
+  "post": "The big white dog is the best trampoline on the farm. The hay bale does not give. The pigs move. The dog does not move, does not give, and has never once complained. I bounced off him eleven times today. He looked at Elizabeth for help. She kept drinking her coffee. I like Elizabeth.",
+  "mood": "triumphant",
+  "image_prompt": "Small white baby goat with a tan patch over the left eye and one tan ear, short legs, oversized ears, knobby knees, photographed slightly from below so he looks taller than he is. He is mid-air, all four hooves off the ground, about to land on the broad back of a huge white Great Pyrenees who is lying flat in a muddy Texas pasture with the expression of a dog who has accepted his fate. Wooden fence and red barn behind, late afternoon light.",
+  "new_memories": [
+    "Eleven bounces is the record. The dog did not say otherwise."
+  ],
+  "reinforced_memories": [
+    0
+  ],
+  "relationship_changes": [
+    {
+      "name": "the big white dog",
+      "feeling": "best trampoline on the property, looked at Elizabeth for help and got none",
+      "strength_delta": 1
+    },
+    {
+      "name": "Elizabeth",
+      "feeling": "acceptable performance, did not interfere with the bouncing",
+      "strength_delta": 0
+    }
+  ],
+  "new_goal": null
+}

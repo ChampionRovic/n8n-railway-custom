@@ -35,7 +35,6 @@ const DAY_SCHEMA = {
     post: { type: "string", description: "The post itself, in Champ's voice. Under 80 words. Add #BabyGoatSunday only if today is Sunday." },
     mood: { type: "string", enum: ["triumphant", "betrayed", "suspicious", "screaming", "smug", "plotting"] },
     image_prompt: { type: "string", description: "One paragraph for an image model. Must start with the visual identity from CHARACTER.md, then the scene." },
-    roof_attempted: { type: "boolean" },
     new_memories: { type: "array", items: { type: "string" }, description: "Zero to two new long-term memories, each one sentence in Champ's voice." },
     reinforced_memories: { type: "array", items: { type: "integer" }, description: "Indexes of existing long-term memories that today's events touched." },
     relationship_changes: {
@@ -51,9 +50,9 @@ const DAY_SCHEMA = {
         additionalProperties: false,
       },
     },
-    new_goal: { type: ["string", "null"], description: "Only if his main goal changed. Usually null. The roof is forever." },
+    new_goal: { type: ["string", "null"], description: "Only if what he is currently fixated on changed. Usually null." },
   },
-  required: ["event_title", "post", "mood", "image_prompt", "roof_attempted", "new_memories", "reinforced_memories", "relationship_changes", "new_goal"],
+  required: ["event_title", "post", "mood", "image_prompt", "new_memories", "reinforced_memories", "relationship_changes", "new_goal"],
   additionalProperties: false,
 };
 
@@ -91,7 +90,7 @@ function buildUserPrompt(memory) {
 
   return [
     `Today is ${dayOfWeek()}, ${todayIso()}. Champ has lived ${memory.days_lived} days in this diary. Current mood going into the day: ${memory.mood}.`,
-    `Current goal: ${memory.current_goal} Roof attempts so far: ${memory.roof_attempts}.`,
+    `Current fixation: ${memory.current_goal}`,
     "",
     "Relationships:",
     rel,
@@ -126,14 +125,13 @@ async function askClaude(system, user) {
 
 function cannedDay() {
   return {
-    event_title: "The hay bale incident",
-    post: "Got on the hay bale. From up here I can see the roof. The roof can see me. We understand each other now. Elizabeth said get down. I did not get down. Then I fell down, which is different.",
-    mood: "triumphant",
-    image_prompt: "Small white baby goat with a tan patch over the left eye and one tan ear, short legs, oversized ears, knobby knees, photographed slightly from below. He stands proudly on top of a round hay bale in a muddy Texas pasture, red barn with a tin roof behind him, golden late-afternoon light, one brown hen in the background looking innocent.",
-    roof_attempted: true,
-    new_memories: ["The hay bale is step one. There is no step two yet."],
-    reinforced_memories: [2, 3],
-    relationship_changes: [{ name: "Elizabeth", feeling: "the only human who matters, said get down, was ignored", strength_delta: 0 }],
+    event_title: "Trough report",
+    post: "There are four troughs. All of them have food. We are all in the one by the gate. Elizabeth filled the other three again. We watched her do it. Then we got back in the one by the gate.",
+    mood: "smug",
+    image_prompt: "Small white baby goat with a tan patch over the left eye and one tan ear, short legs, oversized ears, knobby knees, photographed slightly from below. He is wedged into a blue feed trough with five other baby goats, three empty troughs visible behind them in a muddy Texas pasture, morning light.",
+    new_memories: [],
+    reinforced_memories: [1],
+    relationship_changes: [],
     new_goal: null,
   };
 }
@@ -192,7 +190,6 @@ function applyDay(memory, day) {
   memory.recent_days = memory.recent_days.slice(-KEEP_RECENT_DAYS);
   memory.mood = day.mood;
   memory.days_lived += 1;
-  if (day.roof_attempted) memory.roof_attempts += 1;
   if (day.new_goal) memory.current_goal = day.new_goal;
 
   return memory;
@@ -224,7 +221,7 @@ async function main() {
   console.log(`\n${day.event_title.toUpperCase()}  (${day.mood})\n`);
   console.log(day.post);
   console.log(`\nwrote ${path.relative(process.cwd(), outPath)}`);
-  console.log(`memory: ${updated.long_term.length} long-term, ${updated.days_lived} days lived, ${updated.roof_attempts} roof attempts`);
+  console.log(`memory: ${updated.long_term.length} long-term, ${updated.days_lived} days lived`);
 }
 
 main().catch((err) => {
