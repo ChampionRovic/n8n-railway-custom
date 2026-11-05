@@ -18,8 +18,8 @@
       "strength": 6
     },
     {
-      "name": "the big white dog",
-      "who": "the Great Pyrenees",
+      "name": "Ghost",
+      "who": "the Great Pyrenees, the big white dog",
       "feeling": "best trampoline on the property, looked at Elizabeth for help and got none",
       "strength": 10
     },
@@ -44,7 +44,7 @@
   ],
   "long_term": [
     {
-      "text": "The big white dog does not move when you land on him. This is the best thing about him.",
+      "text": "Ghost does not move when you land on him. This is the best thing about him.",
       "weight": 10,
       "last_used": "2026-11-05"
     },
@@ -64,13 +64,18 @@
       "last_used": "2026-11-05"
     },
     {
-      "text": "Eleven bounces is the record. The dog did not say otherwise.",
+      "text": "Eleven bounces is the record. Ghost did not say otherwise.",
       "weight": 6,
       "last_used": "2026-11-05"
     },
     {
       "text": "I have been inside the house. The house is therefore mine.",
       "weight": 5,
+      "last_used": "2026-11-05"
+    },
+    {
+      "text": "They call the big white dog Ghost. I can see him. That is not a ghost.",
+      "weight": 7,
       "last_used": "2026-11-05"
     }
   ],
